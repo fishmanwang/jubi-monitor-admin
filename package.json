@@ -1,0 +1,28 @@
+{
+  "name": "jubi-monitor-admin",
+  "version": "1.0.0",
+  "description": "虚拟币量化监控系统后台管理平台 - nodejs",
+  "main": "app.js",
+  "dependencies": {
+    "body-parser": "~1.17.1",
+    "cookie-parser": "~1.4.3",
+    "ejs": "~2.5.7",
+    "express": "^4.15.4",
+    "log4js": "~2.3.3",
+    "mysql": "^2.14.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fishmanwang/jubi-monitor-admin.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/fishmanwang/jubi-monitor-admin/issues"
+  },
+  "homepage": "https://github.com/fishmanwang/jubi-monitor-admin#readme"
+}

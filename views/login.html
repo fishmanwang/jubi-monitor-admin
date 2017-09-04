@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>登录</title>
+</head>
+<style>
+    body {
+        text-align: center
+    }
+
+    .center {
+        margin: 200px auto;
+        width: 400px;
+    }
+
+    /* css注释：为了观察效果设置宽度 边框 高度等样式 */
+</style>
+<body>
+
+<div class="center">
+    <h3>虚拟币量化监控管理系统</h3>
+    <div align="center">
+        <form action="${ctx}/login" method="post">
+            <table>
+                <tr>
+                    <td>用户名：</td>
+                    <td><input id="username" name="username"/><br/></td>
+                </tr>
+                <tr>
+                    <td>密码：</td>
+                    <td><input id="password" type="password" name="password"/><br/></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td><input id="okBtn" type="button" value="登录"/></td>
+                </tr>
+            </table>
+        </form>
+    </div>
+</div>
+
+<script src="/static/javascripts/jquery-1.12.1.min.js"></script>
+<script src="/static/javascripts/jubi/login.js"></script>
+
+
+</body>
+</html>
