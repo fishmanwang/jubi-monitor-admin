@@ -1,22 +1,22 @@
 var express = require("express");
 var router = express.Router();
-var mysql = require('../service/mysql_pool')
+var db = require('../service/mysql_pool')
 
-router.get("/login", function(req, res, next) {
-   res.render("login")
+router.get("/login", function (req, res, next) {
+    res.render("login")
 });
 
-router.post("/login", function(req,res, next) {
+router.post("/login", function (req, res, next) {
 
-   console.log("name: ", req.body.username);
-   console.log("password: ", req.body.password);
-   // mysql.exec('select * from zx_user', function(err, result) {
-   //    if (err) {
-   //       console.log("查询用户失败: ", err)
-   //       return;
-   //    }
-   //    console.log(result)
-   // })
+    var username = req.body.username;
+    var password = req.body.password;
+    db.query('select * from zx_user where username = ?', [username], function (err, rows) {
+        if (!rows) {
+            res.json({succ: false, message: '用户名/密码错误'});
+            return;
+        }
+        console.log(rows);
+    })
 });
 
 module.exports = router

@@ -1,30 +1,93 @@
 var mysql = require('mysql');
 
 var pool = mysql.createPool({
-   host: 'localhost',
-   port: 3306,
-   user: 'root',
-   //password: 'root',
-    password: 'Pass1234',
-   database: 'jubi'
+    host: 'localhost',
+    port: 3306,
+    user: 'root',
+    password: 'root',
+    //password: 'Pass1234',
+    database: 'jubi',
+    charset: 'utf8',
+    connectionLimit: 10
 });
 
-var execute = function(sql, params, callback) {
-  pool.getConnection(function(err, conn) {
-     if (err) {
-         callback(err);
-         return;
-     } else {
-         conn.query(sql, params, function(err, result) {
-             if (err) {
-                 callback(err);
-                 return;
-             }
-            conn.release();
-            callback(err, rows)
-         });
-     }
-  });
+var query = function (sql,params, callback) {
+    pool.getConnection(function (err, conn) {
+        if (err) {
+            console.log("获取连接失败,%s", err);
+            return;
+        }
+
+        conn.query(sql, params, function (err, rows, fields) {
+            if (err) {
+                console.log("查询失败,%s", err);
+                return;
+            }
+            callback(rows);
+        });
+
+        conn.release();
+    });
+};
+var insert = function (sql, params, callback) {
+    pool.getConnection(function (err, conn) {
+        if (err) {
+            console.log("获取连接失败,%s", err);
+            return;
+        }
+
+        conn.query(sql, params, function (err, res) {
+            if (err) {
+                console.log("新增失败,%s", err);
+                return;
+            }
+            callback(res.insertId);
+        });
+
+        conn.release();
+    });
+};
+var update = function (sql, params, callback) {
+    pool.getConnection(function (err, conn) {
+        if (err) {
+            console.log("获取连接失败,%s", err);
+            return;
+        }
+
+        conn.query(sql, function (err, res) {
+            if (err) {
+                console.log("修改失败,%s", err);
+                return;
+            }
+            callback(res.affectedRows);
+        });
+
+        conn.release();
+    })
 };
 
-module.exports = {exec: execute}
+var del = function (sql, params, callback) {
+    pool.getConnection(function (err, conn) {
+        if (err) {
+            console.log("获取连接失败,%s", err);
+            return;
+        }
+
+        conn.query(sql, params, function (err, res) {
+            if (err) {
+                console.log("删除失败,%s", err);
+                return;
+            }
+            callback(res.affectedRows);
+        });
+
+        conn.release();
+    })
+};
+
+module.exports = {
+    query: query,
+    insert: insert,
+    update: update,
+    del: del
+};
