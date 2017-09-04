@@ -18,6 +18,7 @@ app.set("view engine", 'html')
 //app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());  //添加json解析器
 app.use(cookieParser());
 app.use('/static', express.static('static'));
 
