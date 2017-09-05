@@ -3,8 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <title>用户管理</title>
+    <link href="/static/stylesheets/style.css" rel="stylesheet" type="text/css">
+    <style>
+        div#content {
+            margin: 0 auto;
+            width: 800px;
+            height: 400px;
+        }
+        /* css注释：为了观察效果设置宽度 边框 高度等样式 */
+
+    </style>
 </head>
 <body>
+<header></header>
+<div id="main">
+    <div id="content">
+        <table id="userTable" width="800px">
+            <tr>
+                <td>用户名</td>
+                <td>昵称</td>
+                <td>电话</td>
+                <td>邮箱</td>
+                <td>上次登录时间</td>
+            </tr>
+        </table>
+    </div>
+</div>
 
+<script src="/static/javascripts/jquery-1.12.1.min.js"></script>
+<script src="/static/javascripts/jubi/common.js"></script>
+<script src="/static/javascripts/jubi/user.js"></script>
 </body>
 </html>

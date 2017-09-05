@@ -33,35 +33,35 @@ app.use('/static', express.static('static'));
 var logger = log4js.getLogger();
 logger.level = 'debug';
 
-app.use(function(req, res, next) {
-    if (req.url.startsWith("/auth/login")) {
-        next();
-        return;
-    }
-    if (!req.session.user) {
-        res.render('login')
-        return;
-    }
-    next()
-})
+// app.use(function(req, res, next) {
+//     if (req.url.startsWith("/auth/login")) {
+//         next();
+//         return;
+//     }
+//     if (!req.session.user) {
+//         res.render('login')
+//         return;
+//     }
+//     next()
+// });
 
 app.use('/', index);
 app.use('/auth', auth);
 app.use('/users', users);
 
-
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
-    var err = new Error('Not Found');
-    err.status = 404;
-    next(err);
+    res.render('404');
 });
 
-// function errorHandler(err, req, res, next) {
-//     res.status(500);
-//     res.render('error', { error: err });
-// }
-// app.use(errorHandler);
+app.use(function(err, req, res, next) {
+    if (err) {
+        console.log(err);
+        res.render('error');
+    } else {
+        next()
+    }
+});
 
 var server = app.listen(3003, function() {
     var host = server.address().address;

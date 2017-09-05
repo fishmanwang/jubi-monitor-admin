@@ -14,12 +14,13 @@ var pool = mysql.createPool({
 var query = function (sql,params, callback) {
     pool.getConnection(function (err, conn) {
         if (err) {
+            callback([]);
             console.log("获取连接失败,%s", err);
             return;
         }
-
         conn.query(sql, params, function (err, rows, fields) {
             if (err) {
+                callback([]);
                 console.log("查询失败,%s", err);
                 return;
             }
@@ -32,12 +33,14 @@ var query = function (sql,params, callback) {
 var insert = function (sql, params, callback) {
     pool.getConnection(function (err, conn) {
         if (err) {
+            callback(-1);
             console.log("获取连接失败,%s", err);
             return;
         }
 
         conn.query(sql, params, function (err, res) {
             if (err) {
+                callback(-1);
                 console.log("新增失败,%s", err);
                 return;
             }
@@ -50,16 +53,18 @@ var insert = function (sql, params, callback) {
 var update = function (sql, params, callback) {
     pool.getConnection(function (err, conn) {
         if (err) {
+            callback(0);
             console.log("获取连接失败,%s", err);
             return;
         }
 
         conn.query(sql, function (err, res) {
             if (err) {
+                callback(0);
                 console.log("修改失败,%s", err);
                 return;
             }
-            callback(res.affectedRows);
+            callback(res.affectedRows)
         });
 
         conn.release();
@@ -69,12 +74,14 @@ var update = function (sql, params, callback) {
 var del = function (sql, params, callback) {
     pool.getConnection(function (err, conn) {
         if (err) {
+            callback(0);
             console.log("获取连接失败,%s", err);
             return;
         }
 
         conn.query(sql, params, function (err, res) {
             if (err) {
+                callback(0);
                 console.log("删除失败,%s", err);
                 return;
             }
